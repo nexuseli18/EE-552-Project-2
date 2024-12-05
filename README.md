@@ -1,4 +1,4 @@
-# EE-552-Project-2
+# EE-553-Project-2
 
 [Student Database](https://www.kaggle.com/datasets/markmedhat/student-scores)
 
