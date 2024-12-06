@@ -4,15 +4,15 @@
 
 ### Todo
 
-[ ] Add NB gender
+[X] Add non-binary gender and make it about 5% of the total number of students
 
-[ ] Add Age
+[X] Add Grade (Freshman/ Sophomore/ Junior/ Senior)
 
-[ ] Add Grade (Freshman/ Sophmore/ Junior Senior)
+[X] Add Age column and randomize age from 14 to 18 based on the grade they're in. so freshman can be 14-15, sophomore can be 15-16, juniors can be 16-17, and seniors can be 17-18
 
-[ ]  CGPA (calculate through subject scores)
+[X] Add CGPA column (cumulative grade point average, add the grades of all the subjects and then divide by number of subjects)
 
-[ ] College Application
+[X] Add College Application column (if student has applied to a college then say which college they applied to, and if they haven't then input N.A.)
 
 ### Program Structure
 
