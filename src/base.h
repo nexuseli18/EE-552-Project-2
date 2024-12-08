@@ -54,9 +54,12 @@ public:
             stringstream ss(line);
             string temp;
             Student _student;
+            getline(ss, temp, ',');
+            _student.id = stoi(temp);
             getline(ss, _student.first_name, ',');
             getline(ss, _student.last_name, ',');
-            getline(ss, _student.email, ',');
+            getline(ss, temp, ',');
+            _student.email = temp.substr(0, temp.find('@'));
             getline(ss, _student.gender, ',');
             getline(ss, temp, ',');
             _student.part_time_job = (temp == "TRUE") ? "Yes" : "No";
@@ -92,5 +95,9 @@ public:
     }
     virtual void view() = 0;
     vector<Student> search_student(string, string);
+    void clearScreen()
+    {
+        system("clear");
+    }
 };
 #endif
