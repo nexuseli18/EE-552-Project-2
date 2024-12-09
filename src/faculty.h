@@ -16,15 +16,14 @@ class faculty : public Base
 
     public:
         faculty();
-        void view();
-        void assign_subject_to_faculty();
-        vector<Student> search_student(string, string);
+        void view(vector<Student> &students);
+        vector<Student> get_students();
+        vector<Student> search_student(string );
+        void sort_student(bool, bool, bool, vector<Student>&);
         bool login(string email, string password);
         //void sort_student(bool by_grade, bool by_last_name, bool by_cgpa);
         // filter by grade
         // search
 };
-
-
 
 #endif
