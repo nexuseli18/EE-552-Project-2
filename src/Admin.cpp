@@ -7,10 +7,24 @@ Admin::Admin() : Base()
     admin_login["admin"] = "123456"; // Admin login
 }
 
-void Admin::view()
+bool Admin::login(string username, string password)
+{
+    if (admin_login.find(username) != admin_login.end() && admin_login[username] == password)
+    {
+        return true;
+    }
+    return false;
+}
+
+vector<Student> Admin::get_students()
+{
+    return this->students;
+}
+
+void Admin::view(vector<Student> &students)
 {
     cout << "Admin view" << endl;
-    int size = this->students.size();
+    int size = students.size();
     int start = 0, end = start + 10;
     char choice;
     while (start < size)
@@ -33,17 +47,17 @@ void Admin::view()
         setw(5) << "Math" << endl;
         for (int i = start; i < end; i++)
         {
-            cout << setw(5) << this->students[i].id << 
-            setw(20) << right << this->students[i].first_name.substr(0, 20) << 
-            setw(20) << right << this->students[i].last_name.substr(0, 20) << 
-            setw(30) << right << this->students[i].email.substr(0, 30) << 
-            setw(12) << right << this->students[i].gender.substr(0, 20) << 
-            setw(20) << right << this->students[i].part_time_job.substr(0, 20) << 
-            setw(20) << right << this->students[i].absence_days << 
-            setw(25) << right << this->students[i].extracurricular_activities.substr(0, 20) << 
-            setw(20) << right << this->students[i].weekly_self_study_hours << 
-            setw(20) << right << this->students[i].career_aspiration.substr(0, 20) << 
-            setw(5) << this->students[i].math_score << endl;
+            cout << setw(5) << students[i].id << 
+            setw(20) << right << students[i].first_name.substr(0, 20) << 
+            setw(20) << right << students[i].last_name.substr(0, 20) << 
+            setw(30) << right << students[i].email.substr(0, 30) << 
+            setw(12) << right << students[i].gender.substr(0, 20) << 
+            setw(20) << right << students[i].part_time_job.substr(0, 20) << 
+            setw(20) << right << students[i].absence_days << 
+            setw(25) << right << students[i].extracurricular_activities.substr(0, 20) << 
+            setw(20) << right << students[i].weekly_self_study_hours << 
+            setw(20) << right << students[i].career_aspiration.substr(0, 20) << 
+            setw(5) << students[i].math_score << endl;
         }
 
         cout << endl;
@@ -59,16 +73,16 @@ void Admin::view()
         setw(30) << "College Application" << endl;
         for (int i = start; i < end; i++)
         {
-            cout << setw(8) << right << this->students[i].history_score << 
-            setw(12) << right << this->students[i].physics_score << 
-            setw(12) << right << this->students[i].chemistry_score << 
-            setw(12) << right << this->students[i].biology_score << 
-            setw(12) << right << this->students[i].english_score << 
-            setw(12) << right << this->students[i].geography_score << 
-            setw(12) << right << this->students[i].Grade.substr(0, 20) << 
-            setw(12) << right << this->students[i].Age << 
-            setw(12) << right << this->students[i].CGPA << 
-            setw(30) << right << this->students[i].College_Application.substr(0, 30) << endl;
+            cout << setw(8) << right << students[i].history_score << 
+            setw(12) << right << students[i].physics_score << 
+            setw(12) << right << students[i].chemistry_score << 
+            setw(12) << right << students[i].biology_score << 
+            setw(12) << right << students[i].english_score << 
+            setw(12) << right << students[i].geography_score << 
+            setw(12) << right << students[i].Grade.substr(0, 20) << 
+            setw(12) << right << students[i].Age << 
+            setw(12) << right << students[i].CGPA << 
+            setw(30) << right << students[i].College_Application.substr(0, 30) << endl;
         }
 
         cout << "Page " << (start / 10) + 1 << " of " << (size / 10) + 1 << endl;
@@ -92,7 +106,7 @@ void Admin::view()
 }
 
 
-void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa)
+void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vector<Student> &students)
 {
     sort(students.begin(), students.end(), [=](const Student a, const Student b) {
         if (by_grade && a.Grade != b.Grade) {
@@ -117,4 +131,34 @@ void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa)
 }
 
 
-// void Admin:: search_student(string )
+ vector<Student> Admin:: search_student(string name)
+{
+    string first_name, last_name;
+    vector<Student> searches;
+    stringstream ss(name);
+    ss >> first_name >> last_name;
+    
+    // Search for best match first and add to searches
+    for (auto student : students)
+    {
+        if (student.first_name == first_name && student.last_name == last_name)
+        {
+            searches.push_back(student);
+        }
+    }
+
+    // Search for partial match and add to searches
+    for (auto student : students)
+    {
+        if (student.first_name == first_name || student.last_name == last_name)
+        {
+            searches.push_back(student);
+        }
+    }
+
+    if (searches.empty())
+    {
+        cout << "No student found with the name.\nNote: Searches are case sensitive" << name << endl;
+    }
+    return searches;
+}

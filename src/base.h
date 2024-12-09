@@ -9,41 +9,42 @@
 
 using namespace std;
 
+// Structure for student data, each student has 18 attributes
+struct Student
+{
+    int id;
+    string first_name;
+    string last_name;
+    string email;
+    string gender;
+    string part_time_job;
+    int absence_days;
+    string extracurricular_activities;
+    int weekly_self_study_hours;
+    string career_aspiration;
+    int math_score;
+    int history_score;
+    int physics_score;
+    int chemistry_score;
+    int biology_score;
+    int english_score;
+    int geography_score;
+    string Grade;
+    int Age;
+    char CGPA;
+    string College_Application;
+};
 class Base
 {
 protected:
-    // Structure for student data, each student has 18 attributes
+    
     // All the Student data is stored in a vector of Student structures
-    struct Student
-    {
-        int id;
-        string first_name;
-        string last_name;
-        string email;
-        string gender;
-        string part_time_job;
-        int absence_days;
-        string extracurricular_activities;
-        int weekly_self_study_hours;
-        string career_aspiration;
-        int math_score;
-        int history_score;
-        int physics_score;
-        int chemistry_score;
-        int biology_score;
-        int english_score;
-        int geography_score;
-        string Grade;
-        int Age;
-        char CGPA;
-        string College_Application;
-    };
     vector<Student> students;
 
 public:
     Base()
     {
-        ifstream file("student-scores-modified-2.csv");
+        ifstream file("student-scores.csv");
         string line;
 
         // skip the first line
@@ -93,7 +94,7 @@ public:
             this->students.push_back(_student);
         }
     }
-    virtual void view() = 0;
+    virtual void view(vector<Student> &) = 0;
     vector<Student> search_student(string, string);
     void clearScreen()
     {
