@@ -13,6 +13,9 @@ class Admin : public Base
         Admin();
         void view();
         vector<Student> search_student(string, string);
+        void sort_student(bool by_grade, bool by_last_name, bool by_cgpa);
+        // filter by grade
+        // search
 };
 
 
