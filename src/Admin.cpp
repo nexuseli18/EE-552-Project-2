@@ -11,8 +11,10 @@ bool Admin::login(string username, string password)
 {
     if (admin_login.find(username) != admin_login.end() && admin_login[username] == password)
     {
+        cout << "Admin login successful" << endl;
         return true;
     }
+    cout << "Invalid username or password" << endl;
     return false;
 }
 
