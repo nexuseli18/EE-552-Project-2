@@ -33,15 +33,15 @@ bool faculty::login(string email, string password)
     return false;
 }
 
-void faculty::assign_subject_to_faculty()
+vector<Student> faculty::get_students()
 {
-    
+    return this->students;
 }
 
-void faculty::view()
+void faculty::view(vector<Student> &stud)
 {
     cout << "Faculty view" << endl;
-    int size = this->students.size();
+    int size = stud.size();
     int start = 0, end = start + 10;
     char choice;
     while (start < size)
@@ -80,7 +80,7 @@ void faculty::view()
         }
         else
         {
-            formattedOutput << setw(12) << right << sub[0];
+            formattedOutput << setw(20) << right << sub[0];
         }
         cout <<
         setw(20) << right << "First Name" << 
@@ -94,27 +94,27 @@ void faculty::view()
             for(int k = 0; k<sub.size(); k++)
             {
                 if(sub[k] == "math_score")
-                    score << setw(20) << right << students[i].math_score ;
+                    score << setw(20) << right << stud[i].math_score ;
                 else if(sub[k] == "history_score")
-                    score << setw(20) << right << students[i].history_score ;
+                    score << setw(20) << right << stud[i].history_score ;
                 else if(sub[k] == "physics_score")
-                    score << setw(20) << right << students[i].physics_score ;
+                    score << setw(20) << right << stud[i].physics_score ;
                 else if(sub[k] == "chemistry_score")
-                    score << setw(20) << right << students[i].chemistry_score ;
+                    score << setw(20) << right << stud[i].chemistry_score ;
                 else if(sub[k] == "biology_score")
-                    score << setw(20) << right << students[i].biology_score ;
+                    score << setw(20) << right << stud[i].biology_score ;
                 else if(sub[k] == "english_score")
-                    score << setw(20) << right << students[i].english_score ;
+                    score << setw(20) << right << stud[i].english_score ;
                 else if(sub[k] == "geography_score")
-                    score << setw(20) << right << students[i].geography_score ;
+                    score << setw(20) << right << stud[i].geography_score ;
             }
             cout <<
-            setw(20) << right << this->students[i].first_name.substr(0, 20) << 
-            setw(20) << right << this->students[i].last_name.substr(0, 20) << 
-            setw(30) << right << this->students[i].email.substr(0, 30) << 
+            setw(20) << right << stud[i].first_name.substr(0, 20) << 
+            setw(20) << right << stud[i].last_name.substr(0, 20) << 
+            setw(30) << right << stud[i].email.substr(0, 30) << 
             score.str() << 
-            setw(12) << right << this->students[i].Grade.substr(0, 20) << 
-            setw(12) << right << this->students[i].CGPA << 
+            setw(12) << right << stud[i].Grade.substr(0, 20) << 
+            setw(12) << right << stud[i].CGPA << 
             endl;
         }
 
@@ -136,4 +136,56 @@ void faculty::view()
             break;
         }
     }
+}
+
+void faculty ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vector<Student> &students)
+{
+    sort(students.begin(), students.end(), [=](const Student a, const Student b) {
+        if (by_grade && a.Grade != b.Grade) {
+            // Priority order: freshman < junior < senior
+            auto gradeRank = [](const string& grade) {
+                if (grade == "Freshman") return 1;
+                if(grade == "Sophomore") return 2;
+                if (grade == "Junior") return 3;
+                if (grade == "Senior") return 4;
+                return 0;
+            };
+            return gradeRank(a.Grade) < gradeRank(b.Grade);
+        }
+        if (by_cgpa && a.CGPA != b.CGPA) {
+            return a.CGPA < b.CGPA; // Priority order: A < B < C < D
+        }
+        if (by_last_name) {
+            return a.last_name < b.last_name; // Alphabetical order
+        }
+        return false; // Equal elements
+    });
+}
+
+vector<Student> faculty :: search_student(string name)
+{
+    string first_name, last_name;
+    vector<Student> searches;
+    stringstream ss(name);
+    ss >> first_name >> last_name;
+    // Search for best match first and add to searches
+    for (auto student : students)
+    {
+        if (student.first_name == first_name && student.last_name == last_name)
+        {
+            searches.push_back(student);
+        }
+    }
+
+    for (auto student : students)
+    {
+        if ((student.first_name == first_name && student.last_name != last_name) || (student.first_name != first_name && student.last_name == last_name))
+            searches.push_back(student);
+    }
+
+    if (searches.empty())
+    {
+        cout << "No student found with the name.\nNote: Searches are case sensitive" << name << endl;
+    }
+    return searches;
 }
