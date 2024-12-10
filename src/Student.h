@@ -1,18 +1,22 @@
-#ifndef STUDENT_H
-#define STUDENT_H
+#ifndef STUDENT_USER_H
+#define STUDENT_USER_H
 
 #include "base.h"
-#include <map>
+#include <vector>
+#include <string>
 
-class Student : public Base
+class StudentUser : public Base
 {
 private:
-    map<string, string> student_login; // Map to store student email and password for login
+    std::string logged_in_user; // This will hold the email of the currently logged in student
 
 public:
-    Student();
-    bool login(string email, string password);
-    void view();
+    StudentUser();
+    bool login(std::string username); // username will be the student's email
+    void view(std::vector<Student> &students);
+    void sort_student(bool by_grade, bool by_last_name, std::vector<Student> &students);
+    std::vector<Student> search_student(std::string name, const std::vector<Student> &students);
+    std::vector<Student> filter_student(std::string grade, const std::vector<Student> &students);
 };
 
 #endif
