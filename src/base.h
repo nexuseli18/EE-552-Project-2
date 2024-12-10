@@ -95,7 +95,7 @@ public:
         }
     }
     virtual void view(vector<Student> &) = 0;
-    vector<Student> search_student(string, string);
+    vector<Student> search_student(string);
     void clearScreen()
     {
         system("clear");

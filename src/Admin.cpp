@@ -25,7 +25,6 @@ vector<Student> Admin::get_students()
 
 void Admin::view(vector<Student> &students)
 {
-    cout << "Admin view" << endl;
     int size = students.size();
     int start = 0, end = start + 10;
     char choice;
@@ -36,6 +35,7 @@ void Admin::view(vector<Student> &students)
             end = size;
         }
         this->clearScreen();
+        cout << "Admin view" << endl;
         cout << setw(5) << right << "ID" << 
         setw(20) << right << "First Name" << 
         setw(20) << right << "Last Name" << 
@@ -164,3 +164,37 @@ void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vector
     }
     return searches;
 }
+
+// vector<Student> Admin::filter_student(string grade ="",  char cgpa = ' ', string gender = "",  string part_time_job = "",  vector<Student> students)
+// {
+//     vector<Student> filtered_students;
+    
+//     // exact matches
+//     for (auto student : students)
+//     {
+//         if((grade != "" && student.Grade == grade) && 
+//            (cgpa != ' ' && student.CGPA == cgpa) &&
+//            (gender != "" && student.gender == gender) &&
+//            (part_time_job == "" && student.part_time_job == part_time_job))
+//            {
+//                 filtered_students.push_back(student);
+//            }
+//     }
+//     // partials matches
+//     for (auto student : students)
+//     {
+//         if((grade != "" && student.Grade == grade) ||
+//            (cgpa != ' ' && student.CGPA == cgpa)||
+//            (gender != "" && student.gender == gender)||
+//            (part_time_job == "" && student.part_time_job == part_time_job))
+//            {
+//                 filtered_students.push_back(student);
+//            }
+//     }
+
+//     if (filtered_students.empty())
+//     {
+//         cout << "No student found with the filter criteria" << endl;
+//     }
+//     return filtered_students;
+// }
