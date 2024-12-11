@@ -4,8 +4,6 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace std;
-
 StudentUser::StudentUser() : Base()
 {
     // Constructor - loads data from Base
