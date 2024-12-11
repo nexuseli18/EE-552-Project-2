@@ -17,30 +17,30 @@ faculty::faculty() : Base()
     faculty3.push_back("geography_score");
 }
 
-bool faculty::login(string email, string password)
+bool faculty::login(std::string email, std::string password)
 {
     // Find the email in the student_login map
     auto it = faculty_login.find(email);
     // Check if email exists and password matches
     if (it != faculty_login.end() && it->second == password)
     {
-        cout << "Login successful!" << endl;
+        std::cout << "Login successful!" << std::endl;
         faculty_username = email;
         return true;
     }
     // If login fails
-    cout << "Invalid email or password." << endl;
+    std::cout << "Invalid email or password." << std::endl;
     return false;
 }
 
-vector<Student> faculty::get_students()
+std::vector<Student> faculty::get_students()
 {
     return this->students;
 }
 
-void faculty::view(vector<Student> &stud)
+void faculty::view(std::vector<Student> &stud)
 {
-    cout << "Faculty view" << endl;
+    std::cout << "Faculty view" << std::endl;
     int size = stud.size();
     int start = 0, end = start + 10;
     char choice;
@@ -51,7 +51,7 @@ void faculty::view(vector<Student> &stud)
             end = size;
         }
         this->clearScreen();
-        vector <string> sub;
+        std::vector <std::string> sub;
         if(faculty_username == "faculty1")
             for(auto ele : faculty1)
             {
@@ -72,64 +72,70 @@ void faculty::view(vector<Student> &stud)
             {
                 sub.push_back(ele);
             }
-        ostringstream formattedOutput;
+        std::ostringstream formattedOutput;
         if(sub.size() == 2)
         {
-            formattedOutput << setw(20) << right << sub[0]
-                        << setw(20) << right << sub[1];
+            formattedOutput << std::setw(20) << std::right << sub[0]
+                        << std::setw(20) << std::right << sub[1];
         }
         else
         {
-            formattedOutput << setw(20) << right << sub[0];
+            formattedOutput << std::setw(20) << std::right << sub[0];
         }
-        cout <<
-        setw(20) << right << "First Name" << 
-        setw(20) << right << "Last Name" << 
-        setw(30) << right << "Email" << formattedOutput.str() << 
-        setw(12) << "Grade" << 
-        setw(12) << "CGPA" <<endl;
+        std::cout <<
+        std::setw(20) << std::right << "First Name" << 
+        std::setw(20) << std::right << "Last Name" << 
+        std::setw(30) << std::right << "Email" << formattedOutput.str() << 
+        std::setw(12) << "Grade" << 
+        std::setw(12) << "CGPA" <<std::endl;
         for (int i = start; i < end; i++)
         {
-            ostringstream score;
+            std::ostringstream score;
             for(int k = 0; k<sub.size(); k++)
             {
                 if(sub[k] == "math_score")
-                    score << setw(20) << right << stud[i].math_score ;
+                    score << std::setw(20) << std::right << stud[i].math_score ;
                 else if(sub[k] == "history_score")
-                    score << setw(20) << right << stud[i].history_score ;
+                    score << std::setw(20) << std::right << stud[i].history_score ;
                 else if(sub[k] == "physics_score")
-                    score << setw(20) << right << stud[i].physics_score ;
+                    score << std::setw(20) << std::right << stud[i].physics_score ;
                 else if(sub[k] == "chemistry_score")
-                    score << setw(20) << right << stud[i].chemistry_score ;
+                    score << std::setw(20) << std::right << stud[i].chemistry_score ;
                 else if(sub[k] == "biology_score")
-                    score << setw(20) << right << stud[i].biology_score ;
+                    score << std::setw(20) << std::right << stud[i].biology_score ;
                 else if(sub[k] == "english_score")
-                    score << setw(20) << right << stud[i].english_score ;
+                    score << std::setw(20) << std::right << stud[i].english_score ;
                 else if(sub[k] == "geography_score")
-                    score << setw(20) << right << stud[i].geography_score ;
+                    score << std::setw(20) << std::right << stud[i].geography_score ;
             }
-            cout <<
-            setw(20) << right << stud[i].first_name.substr(0, 20) << 
-            setw(20) << right << stud[i].last_name.substr(0, 20) << 
-            setw(30) << right << stud[i].email.substr(0, 30) << 
+            std::cout <<
+            std::setw(20) << std::right << stud[i].first_name.substr(0, 20) << 
+            std::setw(20) << std::right << stud[i].last_name.substr(0, 20) << 
+            std::setw(30) << std::right << stud[i].email.substr(0, 30) << 
             score.str() << 
-            setw(12) << right << stud[i].Grade.substr(0, 20) << 
-            setw(12) << right << stud[i].CGPA << 
-            endl;
+            std::setw(12) << std::right << stud[i].Grade.substr(0, 20) << 
+            std::setw(12) <<std:: right << stud[i].CGPA << 
+            std::endl;
         }
 
-        cout << "Page " << (start / 10) + 1 << " of " << (size / 10) + 1 << endl;
-        cout << "Press 'n' for next page, 'p' for previous page, 'b' to quit: ";
-        cin >> choice;
+        std::cout << "Page " << (start / 10) + 1 << " of " << (size / 10) + 1 << std::endl;
+        std::cout << "Press 'n' for next page, 'p' for previous page, 'b' to quit: ";
+        std::cin >> choice;
         if (choice == 'n')
         {
-            start += 10;
-            end += 10;
+            if (end < size)
+            {
+                start += 10;
+                end += 10;
+            }
         }
         else if (choice == 'p')
         {
-            start -= 10;
-            end -= 10;
+            if (start >= 10)
+            {
+                start -= 10;
+                end -= 10;
+            }
         }
         else if (choice == 'b')
         {
@@ -138,12 +144,12 @@ void faculty::view(vector<Student> &stud)
     }
 }
 
-void faculty ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vector<Student> &students)
+void faculty ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, std::vector<Student> &students)
 {
     sort(students.begin(), students.end(), [=](const Student a, const Student b) {
         if (by_grade && a.Grade != b.Grade) {
             // Priority order: freshman < junior < senior
-            auto gradeRank = [](const string& grade) {
+            auto gradeRank = [](const std::string& grade) {
                 if (grade == "Freshman") return 1;
                 if(grade == "Sophomore") return 2;
                 if (grade == "Junior") return 3;
@@ -162,11 +168,11 @@ void faculty ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vect
     });
 }
 
-vector<Student> faculty :: search_student(string name)
+std::vector<Student> faculty :: search_student(std::string name)
 {
-    string first_name, last_name;
-    vector<Student> searches;
-    stringstream ss(name);
+    std::string first_name, last_name;
+    std::vector<Student> searches;
+    std::stringstream ss(name);
     ss >> first_name >> last_name;
     // Search for best match first and add to searches
     for (auto student : students)
@@ -185,7 +191,7 @@ vector<Student> faculty :: search_student(string name)
 
     if (searches.empty())
     {
-        cout << "No student found with the name.\nNote: Searches are case sensitive" << name << endl;
+        std::cout << "No student found with the name.\nNote: Searches are case sensitive" << name << std::endl;
     }
     return searches;
 }
