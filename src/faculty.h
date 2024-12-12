@@ -21,6 +21,7 @@ class faculty : public Base
         std::vector<Student> search_student(const std::string& name);
         void sort_student(bool, bool, bool, std::vector<Student>&);
         bool login(std::string email, std::string password);
+        std::vector<Student> filter_student(std::vector<Student> students, std::string grade ,  char cgpa);
 };
 
 
