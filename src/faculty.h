@@ -7,23 +7,22 @@
 class faculty : public Base
 {
     private:
-        map<string, string> faculty_login;
-        string faculty_username;
-        vector<string> faculty1;
-        vector<string> faculty2;
-        vector<string> faculty3;
-        vector<string> faculty4;
+        std::map<string, string> faculty_login;
+        std::string faculty_username;
+        std::vector<string> faculty1;
+        std::vector<string> faculty2;
+        std::vector<string> faculty3;
+        std::vector<string> faculty4;
 
     public:
         faculty();
-        void view(vector<Student> &students);
-        vector<Student> get_students();
-        vector<Student> search_student(string );
-        void sort_student(bool, bool, bool, vector<Student>&);
-        bool login(string email, string password);
-        //void sort_student(bool by_grade, bool by_last_name, bool by_cgpa);
-        // filter by grade
-        // search
+        void view(std::vector<Student> &students);
+        std::vector<Student> get_students();
+        std::vector<Student> search_student(std::string );
+        void sort_student(bool, bool, bool, std::vector<Student>&);
+        bool login(std::string email, std::string password);
 };
+
+
 
 #endif
