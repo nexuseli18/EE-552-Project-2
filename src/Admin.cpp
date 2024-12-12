@@ -2,11 +2,20 @@
 #include <iomanip>
 #include <algorithm>
 
+
+
+/// @brief Contructor for Admin class, intializes the admin login credentials
 Admin::Admin() : Base()
 {
     admin_login["admin"] = "123456"; // Admin login
 }
 
+
+
+/// @brief login function for Admin class
+/// @param username username of the admin
+/// @param password password of the admin
+/// @return success or failure of the login
 bool Admin::login(std::string username, std::string password)
 {
     if (admin_login.find(username) != admin_login.end() && admin_login[username] == password)
@@ -18,11 +27,17 @@ bool Admin::login(std::string username, std::string password)
     return false;
 }
 
+
+/// @brief returns the students list
+/// @return vector of students
 std::vector<Student> Admin::get_students()
 {
     return this->students;
 }
 
+
+/// @brief Displays the student data
+/// @param students vector of students
 void Admin::view(std::vector<Student> &students)
 {
     int size = students.size();
@@ -117,6 +132,11 @@ void Admin::view(std::vector<Student> &students)
 }
 
 
+/// @brief sorts the students based on the criteria
+/// @param by_grade grade of the student (Freshman, Sophomore, Junior, Senior)
+/// @param by_last_name last name of the student
+/// @param by_cgpa cgpa of the student (A, B, C, D)
+/// @param students vector of students
 void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, std::vector<Student> &students)
 {
     sort(students.begin(), students.end(), [=](const Student a, const Student b) {
@@ -142,6 +162,9 @@ void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, std::v
 }
 
 
+/// @brief search the student based on the name
+/// @param name full name of the student
+/// @return vector of students matching the name
 std::vector<Student> Admin::search_student(const std::string& name)
 {
     std::string first_name, last_name; 
@@ -201,6 +224,14 @@ std::vector<Student> Admin::search_student(const std::string& name)
     return searches;
 }
 
+
+/// @brief filters the students data based on the criteria
+/// @param students vector of students
+/// @param grade grade of the student (Freshman, Sophomore, Junior, Senior) to filter by.
+/// @param cgpa cgpa of the student (A, B, C, D) to filter by.
+/// @param gender gender of the student to filter by.
+/// @param part_time_job part time job status of the student to filter by.
+/// @return vector of students matching the filter criteria
 std::vector<Student> Admin::filter_student(std::vector<Student> students, std::string grade ,  char cgpa, std::string gender,  std::string part_time_job)
 {
     std::vector<Student> filtered_students;

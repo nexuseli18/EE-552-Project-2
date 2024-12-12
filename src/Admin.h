@@ -20,7 +20,7 @@ class Admin : public Base
         std::vector<Student> filter_student(std::vector<Student> students,std::string grade, 
                                        char cgpa,
                                        std::string gender, 
-                                       std::string part_time_job);                                    
+                                       std::string part_time_job);                                  
 };
 
 

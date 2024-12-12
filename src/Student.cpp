@@ -4,12 +4,17 @@
 #include <algorithm>
 #include <sstream>
 
+// Constructor - loads data from Base
+// No login map needed since no password is required
 StudentUser::StudentUser() : Base()
 {
-    // Constructor - loads data from Base
-    // No login map needed since no password is required
 }
 
+
+
+/// @brief login function for Student class
+/// @param username username of the student
+/// @return success or failure of the login
 bool StudentUser::login(std::string username)
 {
     // We will assume that the username is the student's email.
@@ -27,11 +32,15 @@ bool StudentUser::login(std::string username)
     return false;
 }
 
+/// @brief returns the students list
+/// @return vector of students
 std::vector<Student> StudentUser::get_students()
 {
     return this->students;
 }
 
+/// @brief displays the student data
+/// @param students vector of students
 void StudentUser::view(std::vector<Student> &students)
 {
     // Only display first name, last name, email, and grade.
@@ -121,6 +130,11 @@ void StudentUser::view(std::vector<Student> &students)
     }
 }
 
+
+/// @brief sorts students based on the criteria
+/// @param by_grade grade of the student (Freshman, Sophomore, Junior, Senior)
+/// @param by_last_name last name of the student
+/// @param students vector of students
 void StudentUser::sort_student(bool by_grade, bool by_last_name, std::vector<Student> &students)
 {
     // Sort by grade or last name.
@@ -150,6 +164,10 @@ void StudentUser::sort_student(bool by_grade, bool by_last_name, std::vector<Stu
     });
 }
 
+/// @brief search for a student by name
+/// @param name name of the student to search for.
+/// @param all_students students vector to search in.
+/// @return vector of students matching the search criteria.
 std::vector<Student> StudentUser::search_student(std::string name, const std::vector<Student> &all_students)
 {
     // Search by name. Name could be first name, last name, or both.
@@ -210,6 +228,10 @@ std::vector<Student> StudentUser::search_student(std::string name, const std::ve
     return searches;
 }
 
+/// @brief filter students by grade
+/// @param grade grade to filter by.
+/// @param all_students vector of all students.
+/// @return vector of students matching the grade.
 std::vector<Student> StudentUser::filter_student(std::string grade, const std::vector<Student> &all_students)
 {
     // Filter by grade only.

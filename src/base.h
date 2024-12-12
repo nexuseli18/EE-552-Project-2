@@ -41,6 +41,8 @@ protected:
     std::vector<Student> students;
 
 public:
+
+    // Constructor to load data from the CSV file
     Base()
     {
         std::ifstream file("student-scores.csv");
@@ -95,6 +97,8 @@ public:
     }
     virtual void view(std::vector<Student> &) = 0;
     std::vector<Student> search_student(std::string);
+
+    /// Clear the screen
     void clearScreen()
     {
 #ifdef _WIN32

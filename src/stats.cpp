@@ -1,6 +1,7 @@
 #include "stats.h"
 #include <iomanip>
 
+/// @brief derives the student list from base class and initializes the stats maps
 stats::stats() : Base()
 {
     for (auto student : this->students)
@@ -30,11 +31,17 @@ stats::stats() : Base()
     }
 }
 
+
+/// @brief function to get the student list
+/// @return vector of students
 std::vector<Student> stats::get_students()
 {
     return this->students;
 }
 
+
+/// @brief displays the student statistics in the console
+/// @param students vector of students
 void stats::view(std::vector<Student> &students)
 {
     std::cout << "****************Student Statistics****************" << std::endl;
@@ -99,7 +106,9 @@ void stats::view(std::vector<Student> &students)
     }
 }
 
-void stats::plot_career_aspirations()
+
+/// @brief plots the student statistics using matplot++
+void stats::plot_student_stats()
 {
     std::vector<std::string> career;
     std::vector<double> count;
@@ -108,19 +117,66 @@ void stats::plot_career_aspirations()
         career.push_back(c.first);
         count.push_back(c.second);
     }
-    matplot::gcf()->size(2500, 2500);
+    matplot::gcf()->size(3000,3000);
 
-    matplot::subplot(2,3,0);
-    matplot::pie(count, career);
+    matplot::subplot(2, 3, 0);
     matplot::title("Career Aspirations");
-    matplot::subplot(2,3,1);
     matplot::pie(count, career);
-    matplot::title("Career Aspirations");
-    matplot::subplot(2,3,2);
-    matplot::pie(count, career);
-    matplot::title("Career Aspirations");
+
+    matplot::subplot(2, 3, 1);
+    std::vector<std::vector<int>> Y = {
+        {this->freshman_count, this->sophomore_count, this->junior_count, this->senior_count}};
+    matplot::title("Grade Distribution");
+    matplot::bar(Y);
+    matplot::xticklabels({"Freshman", "Sophomore", "Junior", "Senior"});
+    matplot::xlabel("Grade");
+    matplot::ylabel("No of Students");
+
+    matplot::subplot(2, 3, 2);
+    std::vector<std::string> grades = {"Freshman", "Sophomore", "Junior", "Senior"};
+    std::vector<std::vector<int>> X = {
+        {this->grade_cgpa["Freshman"]['A'], this->grade_cgpa["Sophomore"]['A'], this->grade_cgpa["Junior"]['A'], this->grade_cgpa["Senior"]['A']},
+        {this->grade_cgpa["Freshman"]['B'], this->grade_cgpa["Sophomore"]['B'], this->grade_cgpa["Junior"]['B'], this->grade_cgpa["Senior"]['B']},
+        {this->grade_cgpa["Freshman"]['C'], this->grade_cgpa["Sophomore"]['C'], this->grade_cgpa["Junior"]['C'], this->grade_cgpa["Senior"]['C']},
+        {this->grade_cgpa["Freshman"]['D'], this->grade_cgpa["Sophomore"]['D'], this->grade_cgpa["Junior"]['D'], this->grade_cgpa["Senior"]['D']}};
+    matplot::title("Grade and CGPA Distribution");
+    matplot::bar(X);
+    matplot::xlabel("Grade and CGPA, Each grade has 4 bars for A, B, C, D in that order");
+    matplot::ylabel("No of Students");
+    matplot::xticklabels(grades);
+
+    matplot::subplot(2, 3, 3);
+    std::vector<std::string> part_time = {"True", "False"};
+    std::vector<std::vector<int>> Z = {
+        {this->part_time["Freshman"]["True"], this->part_time["Sophomore"]["True"], this->part_time["Junior"]["True"], this->part_time["Senior"]["True"]},
+        {this->part_time["Freshman"]["False"], this->part_time["Sophomore"]["False"], this->part_time["Junior"]["False"], this->part_time["Senior"]["False"]}};
+    matplot::title("Part Time Job Distribution");
+    matplot::bar(Z);
+    matplot::xlabel("Grade, Each grade has 2 bars for True and False in that order");
+    matplot::ylabel("No of Students");
+    matplot::xticklabels(grades);
+
+    matplot::subplot(2, 3, 4);
+    matplot::title("Gender Distribution");
+    std::vector<std::string> gender_l = {"Male", "Female", "Non-Binary"};
+    std::vector<std::vector<int>> A = {{this->gender["male"], this->gender["female"], this->gender["non-binary"]}};
+    matplot::bar(A);
+    matplot::xticklabels(gender_l);
+    matplot::xlabel("Gender");
+    matplot::ylabel("No of Students");
+
+    matplot::subplot(2, 3, 5);
+    std::vector<std::vector<int>> B = {
+        {this->extracurricular["Freshman"]["True"], this->extracurricular["Sophomore"]["True"], this->extracurricular["Junior"]["True"], this->extracurricular["Senior"]["True"]},
+        {this->extracurricular["Freshman"]["False"], this->extracurricular["Sophomore"]["False"], this->extracurricular["Junior"]["False"], this->extracurricular["Senior"]["False"]}};
+    matplot::title("Extracurricular Activities Distribution");
+    matplot::bar(B);
+    matplot::xlabel("Grade, Each grade has 2 bars for True and False in that order");
+    matplot::ylabel("No of Students");
+    matplot::xticklabels(grades);
+
+    matplot::sgtitle("Student Statistics");
     matplot::show();
-    std::cin.get();
 
     this->clearScreen();
 }

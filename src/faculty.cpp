@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <algorithm>
 
+// Constructor - loads data from Base class and initializes faculty login credentials
 faculty::faculty() : Base()
 {
     faculty_login["faculty1"] = "123456"; // Faculty login
@@ -17,6 +18,11 @@ faculty::faculty() : Base()
     faculty3.push_back("geography_score");
 }
 
+
+/// @brief login function for faculty class
+/// @param email email of the faculty
+/// @param password password of the faculty
+/// @return success or failure of the login
 bool faculty::login(std::string email, std::string password)
 {
     // Find the email in the student_login map
@@ -33,11 +39,19 @@ bool faculty::login(std::string email, std::string password)
     return false;
 }
 
+
+
+/// @brief get the students list
+/// @return vector of students
 std::vector<Student> faculty::get_students()
 {
     return this->students;
 }
 
+
+
+/// @brief displays the student data for faculty corresponding to their subject
+/// @param stud vector of students
 void faculty::view(std::vector<Student> &stud)
 {
     std::cout << "Faculty view" << std::endl;
@@ -153,6 +167,11 @@ void faculty::view(std::vector<Student> &stud)
     }
 }
 
+/// @brief sorts the students based on the criteria
+/// @param by_grade whether to sort by grade
+/// @param by_last_name whether to sort by last name
+/// @param by_cgpa whether to sort by CGPA
+/// @param students vector of students
 void faculty ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, std::vector<Student> &students)
 {
     sort(students.begin(), students.end(), [=](const Student a, const Student b) {
@@ -177,6 +196,10 @@ void faculty ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, std:
     });
 }
 
+
+/// @brief search the student based on the name
+/// @param name full name of the student
+/// @return vector of students matching the name
 std::vector<Student> faculty::search_student(const std::string& name)
 {
     std::string first_name, last_name;
@@ -237,6 +260,11 @@ std::vector<Student> faculty::search_student(const std::string& name)
     return searches;
 }
 
+/// @brief filter students based on grade and CGPA
+/// @param students vector of students
+/// @param grade grade to filter by
+/// @param cgpa cgpa to filter by
+/// @return vector of students matching the filter criteria
 std::vector<Student> faculty::filter_student(std::vector<Student> students, std::string grade ,  char cgpa)
 {
     std::vector<Student> filtered_students;
