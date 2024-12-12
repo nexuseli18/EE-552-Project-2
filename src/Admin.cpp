@@ -142,28 +142,53 @@ void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, std::v
 }
 
 
-std::vector<Student> Admin:: search_student(std::string name)
+std::vector<Student> Admin::search_student(const std::string& name)
 {
     std::string first_name, last_name; 
     std::vector<Student> searches; // Store search results
-    std::stringstream ss(name);
-    ss >> first_name >> last_name; // Extract first and last name from name
-    
-    // Search for best match first and add to searches
-    for (auto student : students)
+
+    if (name.empty())
     {
-        if (student.first_name == first_name && student.last_name == last_name)
+        std::cout << "No name provided for search." << std::endl;
+        return searches;
+    }
+
+    std::stringstream ss(name);
+    ss >> first_name >> last_name; // Extract first and last name from input
+
+    if (first_name.empty() && last_name.empty())
+    {
+        std::cout << "Invalid name input for search." << std::endl;
+        return searches;
+    }
+
+    // Convert input names to lowercase for case-insensitive comparison
+    std::transform(first_name.begin(), first_name.end(), first_name.begin(), ::tolower);
+    std::transform(last_name.begin(), last_name.end(), last_name.begin(), ::tolower);
+
+    for (const auto& student : students)
+    {
+        // Convert student names to lowercase
+        std::string student_first = student.first_name;
+        std::string student_last = student.last_name;
+        std::transform(student_first.begin(), student_first.end(), student_first.begin(), ::tolower);
+        std::transform(student_last.begin(), student_last.end(), student_last.begin(), ::tolower);
+
+        // Exact match: first and last name
+        if (!first_name.empty() && !last_name.empty())
+        {
+            if (student_first == first_name && student_last == last_name)
+            {
+                searches.push_back(student);
+            }
+        }
+        // Partial match: only first name
+        else if (!first_name.empty() && student_first == first_name)
         {
             searches.push_back(student);
         }
-    }
-
-    
-    // Search for partial match and add to searches
-    for (auto student : students)
-    {
-        if ((student.first_name == first_name || student.last_name == last_name) && 
-        (student.first_name != first_name || student.last_name != last_name))
+        // Partial match: only last name
+        else if (!last_name.empty() && student_last == last_name)
         {
             searches.push_back(student);
         }
@@ -171,7 +196,7 @@ std::vector<Student> Admin:: search_student(std::string name)
 
     if (searches.empty())
     {
-        std::cout << "No student found with the name.\nNote: Searches are case sensitive" << name << std::endl;
+        std::cout << "No student found with the name: " << name << std::endl;
     }
     return searches;
 }

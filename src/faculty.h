@@ -18,7 +18,7 @@ class faculty : public Base
         faculty();
         void view(std::vector<Student> &students);
         std::vector<Student> get_students();
-        std::vector<Student> search_student(std::string );
+        std::vector<Student> search_student(const std::string& name);
         void sort_student(bool, bool, bool, std::vector<Student>&);
         bool login(std::string email, std::string password);
 };

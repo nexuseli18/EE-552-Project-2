@@ -38,7 +38,7 @@ void StudentUser::view(std::vector<Student> &students)
     // Paginate as done for admin view but with fewer columns.
     int size = static_cast<int>(students.size());
     int start = 0, end = start + 10;
-    char choice;
+    std::string input;
     while (start < size)
     {
         if (end > size)
@@ -62,37 +62,61 @@ void StudentUser::view(std::vector<Student> &students)
                       << std::endl;
         }
 
-        std::cout << "Page " << (start / 10) + 1 << " of " << ((size + 9) / 10) << std::endl;
-        std::cout << "Press 'n' for next page, 'p' for previous page, 'b' to quit: ";
-        std::cin >> choice;
-        if (choice == 'n')
+        int current_page = (start / 10) + 1;
+        int total_pages = (size + 9) / 10;
+        std::cout << "Page " << current_page << " of " << total_pages << std::endl;
+        std::cout << "Press 'n' for next page, 'p' for previous page, 'b' to quit, or enter page number to jump: ";
+        std::cin >> input;
+
+        if (input == "n")
         {
             if (end < size)
             {
                 start += 10;
                 end += 10;
-                if (end > size)
-                {
-                    end = size;
-                }
+            }
+            else
+            {
+                std::cout << "You are on the last page." << std::endl;
             }
         }
-        else if (choice == 'p')
+        else if (input == "p")
         {
             if (start >= 10)
             {
                 start -= 10;
                 end -= 10;
-                if (start < 0)
-                {
-                    start = 0;
-                    end = 10;
-                }
+            }
+            else
+            {
+                std::cout << "You are on the first page." << std::endl;
             }
         }
-        else if (choice == 'b')
+        else if (input == "b")
         {
             break;
+        }
+        else
+        {
+            try
+            {
+                int page = std::stoi(input);
+                if (page >= 1 && page <= total_pages)
+                {
+                    start = (page - 1) * 10;
+                    end = start + 10;
+                    if (end > size)
+                        end = size;
+                }
+                else
+                {
+                    std::cout << "Invalid page number." << std::endl;
+                }
+            }
+            catch (const std::invalid_argument &e)
+            {
+                std::cout << "Invalid input." << std::endl;
+            }
         }
     }
 }
@@ -131,28 +155,49 @@ std::vector<Student> StudentUser::search_student(std::string name, const std::ve
     // Search by name. Name could be first name, last name, or both.
     std::string first_name, last_name;
     std::vector<Student> searches;
+
+    if (name.empty())
+    {
+        std::cout << "No name provided for search." << std::endl;
+        return searches;
+    }
+
     std::stringstream ss(name);
     ss >> first_name >> last_name;
 
-    // Exact match: first and last name
-    for (auto &student : all_students)
+    if (first_name.empty() && last_name.empty())
     {
+        std::cout << "Invalid name input for search." << std::endl;
+        return searches;
+    }
+
+    // Convert input names to lowercase for case-insensitive comparison
+    std::transform(first_name.begin(), first_name.end(), first_name.begin(), ::tolower);
+    std::transform(last_name.begin(), last_name.end(), last_name.begin(), ::tolower);
+
+    for (const auto &student : all_students)
+    {
+        // Convert student names to lowercase
+        std::string student_first = student.first_name;
+        std::string student_last = student.last_name;
+        std::transform(student_first.begin(), student_first.end(), student_first.begin(), ::tolower);
+        std::transform(student_last.begin(), student_last.end(), student_last.begin(), ::tolower);
+
+        // Exact match: first and last name
         if (!first_name.empty() && !last_name.empty())
         {
-            if (student.first_name == first_name && student.last_name == last_name)
+            if (student_first == first_name && student_last == last_name)
             {
                 searches.push_back(student);
             }
         }
-    }
-
-    // Partial match: only first_name or only last_name if exact not found
-    for (auto &student : all_students)
-    {
-        // If we have both first_name and last_name but no exact matches, consider partials:
-        if ((!first_name.empty() && student.first_name == first_name) ||
-            (!last_name.empty() && student.last_name == last_name)
-            && (student.first_name != first_name || student.last_name != last_name))
+        // Partial match: only first name
+        else if (!first_name.empty() && student_first == first_name)
+        {
+            searches.push_back(student);
+        }
+        // Partial match: only last name
+        else if (!last_name.empty() && student_last == last_name)
         {
             searches.push_back(student);
         }
@@ -160,7 +205,7 @@ std::vector<Student> StudentUser::search_student(std::string name, const std::ve
 
     if (searches.empty())
     {
-        std::cout << "No student found with the name. Note: Searches are case sensitive: " << name << std::endl;
+        std::cout << "No student found with the name: " << name << std::endl;
     }
     return searches;
 }
