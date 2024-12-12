@@ -1,10 +1,9 @@
 #include"faculty.h"
 #include"Admin.h"
 #include"Student.h"
-#include"stats.h"
 
 using namespace std;
-// TODO: Add clear screens
+
 int main()
 {
     int c = 1;
@@ -60,7 +59,10 @@ int main()
                     }
                     else if(cho == 'd')
                     {
-                        cout << "Not yet implemented." << endl;
+                        string grd;
+                        cout << "Enter the grade as Freshman, Sophomore, Junior or Senior: " << endl;
+                        cin >> grd;
+                        std.search_student(grd, stud);
                     }
                     else if(cho == 'e')
                     {
@@ -126,7 +128,17 @@ int main()
                     }
                     else if(cho == 'd')
                     {
-                        cout << "Not yet implemented." << endl;
+                        string grd, gender, ptj;
+                        char cgpa;
+                        cout << "Enter the grade as Freshman, Sophomore, Junior or Senior: " << endl;
+                        cin >> grd;
+                        cout << "Enter the cgpa as A,B,C OR D: " << endl;
+                        cin >> cgpa;
+                        cout << "Enter the gender as male, female, non-binary: " << endl;
+                        cin >> gender;
+                        cout << "Enter the part time job as TRUE or FALSE: " << endl;
+                        cin >> ptj;
+                        adm.filter_student(stud, grd, cgpa, gender, ptj);
                     }
                     else if(cho == 'e')
                     {
@@ -192,13 +204,18 @@ int main()
                     }
                     else if(cho == 'd')
                     {
-                        cout << "Not yet implemented." << endl;
+                        string grd;
+                        char cgpa;
+                        cout << "Enter the grade as Freshman, Sophomore, Junior or Senior: " << endl;
+                        cin >> grd;
+                        cout << "Enter the cgpa as A,B,C OR D: " << endl;
+                        cin >> cgpa;
+                        cout << "Enter the gender as male, female, non-binary: " << endl;
+                        fac.filter_student(stud, grd, cgpa);
                     }
                     else if(cho == 'e')
                     {
-
                         cout << "Logging out from Faculty login!" << endl;
-
                         break;
                     }
                     else
@@ -212,11 +229,6 @@ int main()
         }
         else if(c == 4)
         {
-            stats s;
-            vector<Student> stud;
-            stud = s.get_students();
-            s.view(stud);
-            s.plot_career_aspirations();
             
         }
         else if(c == 5)
@@ -229,5 +241,5 @@ int main()
         }
     }
 
-    return 0;
+    return 1;
 }
