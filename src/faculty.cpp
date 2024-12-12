@@ -236,3 +236,25 @@ std::vector<Student> faculty::search_student(const std::string& name)
 
     return searches;
 }
+
+std::vector<Student> faculty::filter_student(std::vector<Student> students, std::string grade ,  char cgpa)
+{
+    std::vector<Student> filtered_students;
+    
+    // exact matches
+    for (auto student : students)
+    {
+
+
+        if((student.Grade == grade) && 
+           (student.CGPA == cgpa))
+           {
+                filtered_students.push_back(student);
+           }
+    }
+    if (filtered_students.empty())
+    {
+        std::cout << "No student found with the filter criteria" << std::endl;
+    }
+    return filtered_students;
+}
