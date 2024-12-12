@@ -7,23 +7,23 @@ Admin::Admin() : Base()
     admin_login["admin"] = "123456"; // Admin login
 }
 
-bool Admin::login(string username, string password)
+bool Admin::login(std::string username, std::string password)
 {
     if (admin_login.find(username) != admin_login.end() && admin_login[username] == password)
     {
-        cout << "Admin login successful" << endl;
+        std::cout << "Admin login successful" << std::endl;
         return true;
     }
-    cout << "Invalid username or password" << endl;
+    std::cout << "Invalid username or password" <<std:: endl;
     return false;
 }
 
-vector<Student> Admin::get_students()
+std::vector<Student> Admin::get_students()
 {
     return this->students;
 }
 
-void Admin::view(vector<Student> &students)
+void Admin::view(std::vector<Student> &students)
 {
     int size = students.size();
     int start = 0, end = start + 10;
@@ -35,70 +35,79 @@ void Admin::view(vector<Student> &students)
             end = size;
         }
         this->clearScreen();
-        cout << "Admin view" << endl;
-        cout << setw(5) << right << "ID" << 
-        setw(20) << right << "First Name" << 
-        setw(20) << right << "Last Name" << 
-        setw(30) << right << "Email" << 
-        setw(12) << right << "Gender" << 
-        setw(20) << right << "Part Time Job" << 
-        setw(20) << right << "Absence Days" << 
-        setw(25) << right << "Extracurricular" << 
-        setw(20) << right << "Self Study Hours" << 
-        setw(20) << right << "Career " << 
-        setw(5) << "Math" << endl;
+        std::cout << "Admin view" <<std:: endl;
+        std::cout << std::setw(5) << std::right << "ID" << 
+        std::setw(20) << std::right << "First Name" << 
+        std::setw(20) << std::right << "Last Name" << 
+        std::setw(30) << std::right << "Email" << 
+        std::setw(12) << std::right << "Gender" << 
+        std::setw(20) << std::right << "Part Time Job" << 
+        std::setw(20) << std::right << "Absence Days" << 
+        std::setw(25) << std::right << "Extracurricular" << 
+        std::setw(20) << std::right << "Self Study Hours" << 
+        std::setw(20) << std::right << "Career " << 
+        std::setw(5) << "Math" << std::endl;
         for (int i = start; i < end; i++)
         {
-            cout << setw(5) << students[i].id << 
-            setw(20) << right << students[i].first_name.substr(0, 20) << 
-            setw(20) << right << students[i].last_name.substr(0, 20) << 
-            setw(30) << right << students[i].email.substr(0, 30) << 
-            setw(12) << right << students[i].gender.substr(0, 20) << 
-            setw(20) << right << students[i].part_time_job.substr(0, 20) << 
-            setw(20) << right << students[i].absence_days << 
-            setw(25) << right << students[i].extracurricular_activities.substr(0, 20) << 
-            setw(20) << right << students[i].weekly_self_study_hours << 
-            setw(20) << right << students[i].career_aspiration.substr(0, 20) << 
-            setw(5) << students[i].math_score << endl;
+            std::cout << std::setw(5) << students[i].id << 
+            std::setw(20) << std::right << students[i].first_name.substr(0, 20) << 
+            std::setw(20) << std::right << students[i].last_name.substr(0, 20) << 
+            std::setw(30) << std::right << students[i].email.substr(0, 30) << 
+            std::setw(12) << std::right << students[i].gender.substr(0, 20) << 
+            std::setw(20) << std::right << students[i].part_time_job.substr(0, 20) << 
+            std::setw(20) << std::right << students[i].absence_days << 
+            std::setw(25) << std::right << students[i].extracurricular_activities.substr(0, 20) << 
+            std::setw(20) << std::right << students[i].weekly_self_study_hours << 
+            std::setw(20) << std::right << students[i].career_aspiration.substr(0, 20) << 
+            std::setw(5) << students[i].math_score << std::endl;
         }
 
-        cout << endl;
-        cout << setw(8) << "History" << 
-        setw(12) << "Physics" << 
-        setw(12) << "Chemistry" << 
-        setw(12) << "Biology" << 
-        setw(12) << "English" << 
-        setw(12) << "Geography" << 
-        setw(12) << "Grade" << 
-        setw(12) << "Age" << 
-        setw(12) << "CGPA" << 
-        setw(30) << "College Application" << endl;
+        std::cout << std::endl;
+        std::cout << std::setw(8) << "History" << 
+        std::setw(12) << "Physics" << 
+        std::setw(12) << "Chemistry" << 
+        std::setw(12) << "Biology" << 
+        std::setw(12) << "English" << 
+        std::setw(12) << "Geography" << 
+        std::setw(12) << "Grade" << 
+        std::setw(12) << "Age" << 
+        std::setw(12) << "CGPA" << 
+        std::setw(30) << "College Application" << std::endl;
         for (int i = start; i < end; i++)
         {
-            cout << setw(8) << right << students[i].history_score << 
-            setw(12) << right << students[i].physics_score << 
-            setw(12) << right << students[i].chemistry_score << 
-            setw(12) << right << students[i].biology_score << 
-            setw(12) << right << students[i].english_score << 
-            setw(12) << right << students[i].geography_score << 
-            setw(12) << right << students[i].Grade.substr(0, 20) << 
-            setw(12) << right << students[i].Age << 
-            setw(12) << right << students[i].CGPA << 
-            setw(30) << right << students[i].College_Application.substr(0, 30) << endl;
+            std::cout << std::setw(8) << std::right << students[i].history_score << 
+            std::setw(12) << std::right << students[i].physics_score << 
+            std::setw(12) << std::right << students[i].chemistry_score << 
+            std::setw(12) << std::right << students[i].biology_score << 
+            std::setw(12) << std::right << students[i].english_score << 
+            std::setw(12) << std::right << students[i].geography_score << 
+            std::setw(12) << std::right << students[i].Grade.substr(0, 20) << 
+            std::setw(12) << std::right << students[i].Age << 
+            std::setw(12) << std::right << students[i].CGPA << 
+            std::setw(30) << std::right << students[i].College_Application.substr(0, 30) << std::endl;
         }
 
-        cout << "Page " << (start / 10) + 1 << " of " << (size / 10) + 1 << endl;
-        cout << "Press 'n' for next page, 'p' for previous page, 'b' to quit: ";
-        cin >> choice;
+        std::cout << "Page " << (start / 10) + 1 << " of " << (size / 10) + 1 << std::endl;
+        std::cout << "Press 'n' for next page, 'p' for previous page, 'b' to quit: ";
+        std::cin >> choice;
         if (choice == 'n')
         {
             start += 10;
             end += 10;
+            if (end > size)
+            {
+                end = size;
+            }
         }
         else if (choice == 'p')
         {
             start -= 10;
             end -= 10;
+            if (start < 0)
+            {
+                start = 0;
+                end = 10;
+            }
         }
         else if (choice == 'b')
         {
@@ -108,12 +117,12 @@ void Admin::view(vector<Student> &students)
 }
 
 
-void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vector<Student> &students)
+void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, std::vector<Student> &students)
 {
     sort(students.begin(), students.end(), [=](const Student a, const Student b) {
         if (by_grade && a.Grade != b.Grade) {
             // Priority order: freshman < junior < senior
-            auto gradeRank = [](const string& grade) {
+            auto gradeRank = [](const std::string& grade) {
                 if (grade == "Freshman") return 1;
                 if(grade == "Sophomore") return 2;
                 if (grade == "Junior") return 3;
@@ -133,12 +142,12 @@ void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vector
 }
 
 
- vector<Student> Admin:: search_student(string name)
+std::vector<Student> Admin:: search_student(std::string name)
 {
-    string first_name, last_name;
-    vector<Student> searches;
-    stringstream ss(name);
-    ss >> first_name >> last_name;
+    std::string first_name, last_name; 
+    std::vector<Student> searches; // Store search results
+    std::stringstream ss(name);
+    ss >> first_name >> last_name; // Extract first and last name from name
     
     // Search for best match first and add to searches
     for (auto student : students)
@@ -149,10 +158,12 @@ void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vector
         }
     }
 
+    
     // Search for partial match and add to searches
     for (auto student : students)
     {
-        if (student.first_name == first_name || student.last_name == last_name)
+        if ((student.first_name == first_name || student.last_name == last_name) && 
+        (student.first_name != first_name || student.last_name != last_name))
         {
             searches.push_back(student);
         }
@@ -160,41 +171,31 @@ void Admin ::sort_student(bool by_grade, bool by_last_name, bool by_cgpa, vector
 
     if (searches.empty())
     {
-        cout << "No student found with the name.\nNote: Searches are case sensitive" << name << endl;
+        std::cout << "No student found with the name.\nNote: Searches are case sensitive" << name << std::endl;
     }
     return searches;
 }
 
-// vector<Student> Admin::filter_student(string grade ="",  char cgpa = ' ', string gender = "",  string part_time_job = "",  vector<Student> students)
-// {
-//     vector<Student> filtered_students;
+std::vector<Student> Admin::filter_student(std::vector<Student> students, std::string grade ,  char cgpa, std::string gender,  std::string part_time_job)
+{
+    std::vector<Student> filtered_students;
     
-//     // exact matches
-//     for (auto student : students)
-//     {
-//         if((grade != "" && student.Grade == grade) && 
-//            (cgpa != ' ' && student.CGPA == cgpa) &&
-//            (gender != "" && student.gender == gender) &&
-//            (part_time_job == "" && student.part_time_job == part_time_job))
-//            {
-//                 filtered_students.push_back(student);
-//            }
-//     }
-//     // partials matches
-//     for (auto student : students)
-//     {
-//         if((grade != "" && student.Grade == grade) ||
-//            (cgpa != ' ' && student.CGPA == cgpa)||
-//            (gender != "" && student.gender == gender)||
-//            (part_time_job == "" && student.part_time_job == part_time_job))
-//            {
-//                 filtered_students.push_back(student);
-//            }
-//     }
+    // exact matches
+    for (auto student : students)
+    {
 
-//     if (filtered_students.empty())
-//     {
-//         cout << "No student found with the filter criteria" << endl;
-//     }
-//     return filtered_students;
-// }
+
+        if((student.Grade == grade) && 
+           (student.CGPA == cgpa) &&
+           (student.gender == gender) &&
+           (student.part_time_job == part_time_job))
+           {
+                filtered_students.push_back(student);
+           }
+    }
+    if (filtered_students.empty())
+    {
+        std::cout << "No student found with the filter criteria" << std::endl;
+    }
+    return filtered_students;
+}

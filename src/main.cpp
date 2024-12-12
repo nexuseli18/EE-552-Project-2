@@ -1,9 +1,10 @@
 #include"faculty.h"
 #include"Admin.h"
 #include"Student.h"
+#include"stats.h"
 
 using namespace std;
-
+// TODO: Add clear screens
 int main()
 {
     int c = 1;
@@ -195,7 +196,9 @@ int main()
                     }
                     else if(cho == 'e')
                     {
+
                         cout << "Logging out from Faculty login!" << endl;
+
                         break;
                     }
                     else
@@ -209,6 +212,11 @@ int main()
         }
         else if(c == 4)
         {
+            stats s;
+            vector<Student> stud;
+            stud = s.get_students();
+            s.view(stud);
+            s.plot_career_aspirations();
             
         }
         else if(c == 5)
@@ -221,5 +229,5 @@ int main()
         }
     }
 
-    return 1;
+    return 0;
 }

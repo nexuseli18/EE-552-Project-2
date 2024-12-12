@@ -127,6 +127,10 @@ void faculty::view(std::vector<Student> &stud)
             {
                 start += 10;
                 end += 10;
+                if (end > size)
+                {
+                    end = size;
+                }
             }
         }
         else if (choice == 'p')
@@ -135,6 +139,11 @@ void faculty::view(std::vector<Student> &stud)
             {
                 start -= 10;
                 end -= 10;
+                if (start < 0)
+                {
+                    start = 0;
+                    end = 10;
+                }
             }
         }
         else if (choice == 'b')

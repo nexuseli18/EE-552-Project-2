@@ -7,12 +7,12 @@
 class faculty : public Base
 {
     private:
-        std::map<string, string> faculty_login;
+        std::map<std::string, std::string> faculty_login;
         std::string faculty_username;
-        std::vector<string> faculty1;
-        std::vector<string> faculty2;
-        std::vector<string> faculty3;
-        std::vector<string> faculty4;
+        std::vector<std::string> faculty1;
+        std::vector<std::string> faculty2;
+        std::vector<std::string> faculty3;
+        std::vector<std::string> faculty4;
 
     public:
         faculty();

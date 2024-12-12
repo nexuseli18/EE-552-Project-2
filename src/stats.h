@@ -4,22 +4,25 @@
 #include "base.h"
 #include <map>
 #include <cmath>
-// #include <matplot/matplot.h>
-using namespace std;
+#include <matplot/matplot.h>
 class stats : public Base
 {
 private:
-    map<string, int> career_aspirations;           //(career_aspiration, count)
-    map<string, map<char, int>> grade_cgpa;        //(grade, (cgpa, count))
-    map<string, map<string, int>> part_time;       //(grade, (part time job, count))
-    map<string, int> gender;                       // (gender, count)
-    map<string, map<string, int>> extracurricular; // (grade, (extracurricular, count))
+    std::map<std::string, int> career_aspirations;                     //(career_aspiration, count)
+    std::map<std::string, std::map<char, int>> grade_cgpa;             //(grade, (cgpa, count))
+    std::map<std::string, std::map<std::string, int>> part_time;       //(grade, (part time job, count))
+    std::map<std::string, int> gender;                                 // (gender, count)
+    std::map<std::string, std::map<std::string, int>> extracurricular; // (grade, (extracurricular, count))
+    int freshman_count = 0;
+    int sophomore_count = 0;
+    int junior_count = 0;
+    int senior_count = 0;
 
 public:
     stats();
-    vector<Student> get_students();
-    void view(vector<Student> &students);
-    // void plot_career_aspirations();
+    std::vector<Student> get_students();
+    void view(std::vector<Student> &students);
+    void plot_career_aspirations();
     // void plot_grade_cgpa();
     // void plot_part_time();
     // void plot_gender();

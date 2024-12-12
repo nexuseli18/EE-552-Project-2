@@ -71,6 +71,10 @@ void StudentUser::view(std::vector<Student> &students)
             {
                 start += 10;
                 end += 10;
+                if (end > size)
+                {
+                    end = size;
+                }
             }
         }
         else if (choice == 'p')
@@ -79,6 +83,11 @@ void StudentUser::view(std::vector<Student> &students)
             {
                 start -= 10;
                 end -= 10;
+                if (start < 0)
+                {
+                    start = 0;
+                    end = 10;
+                }
             }
         }
         else if (choice == 'b')
@@ -142,7 +151,8 @@ std::vector<Student> StudentUser::search_student(std::string name, const std::ve
     {
         // If we have both first_name and last_name but no exact matches, consider partials:
         if ((!first_name.empty() && student.first_name == first_name) ||
-            (!last_name.empty() && student.last_name == last_name))
+            (!last_name.empty() && student.last_name == last_name)
+            && (student.first_name != first_name || student.last_name != last_name))
         {
             searches.push_back(student);
         }
