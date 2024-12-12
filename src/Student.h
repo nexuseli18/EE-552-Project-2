@@ -15,6 +15,7 @@ public:
     bool login(std::string username); // username will be the student's email
     void view(std::vector<Student> &students);
     void sort_student(bool by_grade, bool by_last_name, std::vector<Student> &students);
+    std::vector<Student> get_students();
     std::vector<Student> search_student(std::string name, const std::vector<Student> &students);
     std::vector<Student> filter_student(std::string grade, const std::vector<Student> &students);
 };

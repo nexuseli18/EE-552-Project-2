@@ -27,6 +27,11 @@ bool StudentUser::login(std::string username)
     return false;
 }
 
+std::vector<Student> StudentUser::get_students()
+{
+    return this->students;
+}
+
 void StudentUser::view(std::vector<Student> &students)
 {
     // Only display first name, last name, email, and grade.
