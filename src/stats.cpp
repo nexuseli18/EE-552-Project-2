@@ -177,6 +177,7 @@ void stats::plot_student_stats()
 
     matplot::sgtitle("Student Statistics");
     matplot::show();
+    std::cin.get();
 
     this->clearScreen();
 }

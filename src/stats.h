@@ -22,11 +22,7 @@ public:
     stats();
     std::vector<Student> get_students();
     void view(std::vector<Student> &students);
-    void plot_career_aspirations();
-    // void plot_grade_cgpa();
-    // void plot_part_time();
-    // void plot_gender();
-    // void plot_extracurricular();
+    void plot_student_stats();
 };
 
 #endif
