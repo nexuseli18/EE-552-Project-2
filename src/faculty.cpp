@@ -57,7 +57,7 @@ void faculty::view(std::vector<Student> &stud)
     std::cout << "Faculty view" << std::endl;
     int size = stud.size();
     int start = 0, end = start + 10;
-    char choice;
+    std::string choice;
     while (start < size)
     {
         if (end > size)
@@ -132,37 +132,61 @@ void faculty::view(std::vector<Student> &stud)
             std::endl;
         }
 
-        std::cout << "Page " << (start / 10) + 1 << " of " << (size / 10) + 1 << std::endl;
-        std::cout << "Press 'n' for next page, 'p' for previous page, 'b' to quit: ";
+         int current_page = (start / 10) + 1;
+        int total_pages = (size + 9) / 10;
+        std::cout << "Page " << current_page << " of " << total_pages << std::endl;
+        std::cout << "Press 'n' for next page, 'p' for previous page, 'b' to quit, or enter page number to jump: ";
         std::cin >> choice;
-        if (choice == 'n')
+
+        if (choice == "n")
         {
             if (end < size)
             {
                 start += 10;
                 end += 10;
-                if (end > size)
-                {
-                    end = size;
-                }
+            }
+            else
+            {
+                std::cout << "You are on the last page." << std::endl;
             }
         }
-        else if (choice == 'p')
+        else if (choice == "p")
         {
             if (start >= 10)
             {
                 start -= 10;
                 end -= 10;
-                if (start < 0)
-                {
-                    start = 0;
-                    end = 10;
-                }
+            }
+            else
+            {
+                std::cout << "You are on the first page." << std::endl;
             }
         }
-        else if (choice == 'b')
+        else if (choice == "b")
         {
             break;
+        }
+        else
+        {
+            try
+            {
+                int page = std::stoi(choice);
+                if (page >= 1 && page <= total_pages)
+                {
+                    start = (page - 1) * 10;
+                    end = start + 10;
+                    if (end > size)
+                        end = size;
+                }
+                else
+                {
+                    std::cout << "Invalid page number." << std::endl;
+                }
+            }
+            catch (const std::invalid_argument &e)
+            {
+                std::cout << "Invalid choice." << std::endl;
+            }
         }
     }
 }
